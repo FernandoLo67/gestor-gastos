@@ -115,7 +115,18 @@ El mismo metodo devolvia dinero con dos decimales o con ninguno segun hubiera da
 
 **Los importes se comparan con `compareTo` cuando interesa el valor y con `toPlainString` cuando interesa la escala.** `BigDecimal.equals` compara las dos cosas a la vez, que es justo lo que no sirve para afirmar una sola.
 
-## Las 30 pruebas
+## Resumen anual
+
+`ResumenAnual` agrega los datos de todos los meses en un solo vistazo:
+
+- **Total anual** y **promedio mensual**
+- **Totales por mes**: los doce meses, incluidos los que tienen cero
+- **Totales por categoria**: ordenados de mayor a menor gasto
+- **Mes con mas gasto**: desempata por orden cronologico
+
+`generar()` produce un reporte formateado en texto plano, listo para imprimir o guardar. Los calculos usan `BigDecimal` con la misma escala de dos decimales que el resto del proyecto — un resumen que redondea distinto a los parciales no cuadra, y esa clase de descuadre es la que hace perder horas.
+
+## Las 42 pruebas
 
 **`GestorGastosTest` (21)**
 
@@ -144,11 +155,13 @@ src/main/java/com/fernando/gastos/
 ├── Gasto.java                  Record inmutable, se valida al construirlo.
 ├── GestorGastos.java           Totales, presupuestos, alertas y reporte.
 ├── Csv.java                    Entrecomillado RFC 4180: escapa, no prohibe.
+├── ResumenAnual.java           Agregacion anual por mes y por categoria.
 ├── RepositorioGastosCsv.java   Guarda gastos Y presupuestos.
 └── Main.java                   Solo lee del teclado y escribe en pantalla.
 src/test/java/com/fernando/gastos/
 ├── GestorGastosTest.java          21 pruebas.
-└── RepositorioGastosCsvTest.java   9 pruebas.
+├── RepositorioGastosCsvTest.java   9 pruebas.
+└── ResumenAnualTest.java          12 pruebas.
 ```
 
 ## Como ejecutar
