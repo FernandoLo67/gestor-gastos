@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -164,13 +163,7 @@ public class GestorGastos {
         for (Gasto gasto : gastosDe(mes)) {
             porCategoria.merge(gasto.categoria(), gasto.monto(), BigDecimal::add);
         }
-
-        Map<Categoria, BigDecimal> ordenado = new LinkedHashMap<>();
-        porCategoria.entrySet().stream()
-                .sorted(Map.Entry.<Categoria, BigDecimal>comparingByValue().reversed()
-                        .thenComparing(Map.Entry.comparingByKey()))
-                .forEach(e -> ordenado.put(e.getKey(), e.getValue().setScale(ESCALA, REDONDEO)));
-        return ordenado;
+        return ResumenAnual.ordenarPorMontoDescendente(porCategoria);
     }
 
     /**
